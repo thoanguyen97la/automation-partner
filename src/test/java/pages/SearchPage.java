@@ -68,6 +68,6 @@ public class SearchPage extends BasePage {
         return findElement(otherBtn).isDisplayed();
     }
     public void scrollShareButtonsList(){
-        scrollToView(qrShareBtn,"left");
+        swipeElement(qrShareBtn,"left");
     }
 }

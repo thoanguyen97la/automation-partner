@@ -3,8 +3,8 @@ package tests;
 import base.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import pages.HomePage;
 import pages.SearchPage;
+import pages.components.BottomMenu;
 import testdata.ExpectedDataSearch;
 
 import java.util.List;
@@ -13,8 +13,8 @@ public class SearchTest extends BaseTest {
     @Test
     public void test_search_page_displayed_when_click_search_tab() {
         //1. Click Search tab on bottom menu
-        HomePage homePage = new HomePage(driver);
-        SearchPage searchPage = homePage.clickSearchBtn();
+        BottomMenu bottomMenu = new BottomMenu(driver);
+        SearchPage searchPage = bottomMenu.clickSearchTab();
         //Verify Search page is displayed
         Assert.assertTrue(searchPage.isSearchPageDisplayed());
         //Verify soft keyboard is displayed
@@ -27,8 +27,8 @@ public class SearchTest extends BaseTest {
     @Test
     public void test_search_product_with_keyword_should_return_results(){
         //1. Click Search tab on bottom menu
-        HomePage homePage = new HomePage(driver);
-        SearchPage searchPage = homePage.clickSearchBtn();
+        BottomMenu bottomMenu = new BottomMenu(driver);
+        SearchPage searchPage = bottomMenu.clickSearchTab();
         //2. Verify Search page is displayed
         Assert.assertTrue(searchPage.isSearchPageDisplayed());
         //3. Enter keyword "cam" and hide keyboard
@@ -45,8 +45,8 @@ public class SearchTest extends BaseTest {
     @Test
     public void test_search_product_with_keyword_should_return_no_result(){
         //1. Click Search tab on bottom menu
-        HomePage homePage = new HomePage(driver);
-        SearchPage searchPage = homePage.clickSearchBtn();
+        BottomMenu bottomMenu = new BottomMenu(driver);
+        SearchPage searchPage = bottomMenu.clickSearchTab();
         //2. Verify Search page is displayed
         Assert.assertTrue(searchPage.isSearchPageDisplayed());
         //3. Enter keyword "cam" and hide keyboard
@@ -57,8 +57,8 @@ public class SearchTest extends BaseTest {
     @Test
     public void test_show_share_bottom_sheet_when_click_share_button_on_product_card(){
         //1. Click Search tab on bottom menu
-        HomePage homePage = new HomePage(driver);
-        SearchPage searchPage = homePage.clickSearchBtn();
+        BottomMenu bottomMenu = new BottomMenu(driver);
+        SearchPage searchPage = bottomMenu.clickSearchTab();
         //2. Verify Search page is displayed
         Assert.assertTrue(searchPage.isSearchPageDisplayed());
         //3. Enter keyword "cam" and hide keyboard
@@ -68,7 +68,7 @@ public class SearchTest extends BaseTest {
         searchPage.clickShareCustomer();
         //Verify product share bottom sheet is displayed
         Assert.assertTrue(searchPage.isProductShareBottomSheetDisplayed());
-        Assert.assertTrue(searchPage.isQRShareButtonDisplayed());
+        Assert.assertTrue(searchPage.isZaloShareButtonDisplayed());
         Assert.assertTrue(searchPage.isQRShareButtonDisplayed());
         searchPage.scrollShareButtonsList();
         Assert.assertTrue(searchPage.isCopyButtonDisplayed());
