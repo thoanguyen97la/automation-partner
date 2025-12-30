@@ -2,14 +2,15 @@ package pages;
 
 import base.BasePage;
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class UserPage extends BasePage {
+public class UserManagementPage extends BasePage {
     //======LOCATORS=======//
     By utilsBlock = AppiumBy.accessibilityId("Tiện ích");
 
-    public UserPage(WebDriver driver) {
+    public UserManagementPage(AndroidDriver driver) {
         super(driver);
     }
     public boolean isUserPageDisplayed(){
@@ -18,6 +19,7 @@ public class UserPage extends BasePage {
     public void scrollToUtilsBlock(){
         scrollDownFullScreen();
     }
+
 
 
 }

@@ -1,12 +1,12 @@
 package pages.components;
 
 import base.BasePage;
+import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import pages.HomePage;
-import pages.OrderPage;
+import pages.Orders.OrderPage;
 import pages.SearchPage;
-import pages.UserPage;
+import pages.UserManagementPage;
 
 public class BottomMenu extends BasePage {
     //====LOCATORS=======//
@@ -15,12 +15,24 @@ public class BottomMenu extends BasePage {
     By searchTab = By.xpath("//android.widget.ImageView[contains(@content-desc,'Tìm kiếm')]");
     By orderTab = By.xpath("//android.widget.ImageView[contains(@content-desc,'Đơn hàng')]");
 
-    public BottomMenu(WebDriver driver) {
+    public BottomMenu(AndroidDriver driver) {
         super(driver);
     }
-    public UserPage clickUserTab() {
+    public boolean isHomeTabDisplayed(){
+        return findElement(homeTab).isDisplayed();
+    }
+    public boolean isOrderTabDisplayed(){
+        return findElement(orderTab).isDisplayed();
+    }
+    public boolean isSearchTabDisplayed(){
+        return findElement(searchTab).isDisplayed();
+    }
+    public boolean isUserTabDisplayed(){
+        return findElement(userTab).isDisplayed();
+    }
+    public UserManagementPage clickUserTab() {
         clickElement(userTab);
-        return new UserPage(driver);
+        return new UserManagementPage(driver);
     }
     public SearchPage clickSearchTab() {
         clickElement(searchTab);

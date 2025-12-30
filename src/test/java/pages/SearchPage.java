@@ -2,6 +2,7 @@ package pages;
 
 import base.BasePage;
 import io.appium.java_client.AppiumBy;
+import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -23,7 +24,7 @@ public class SearchPage extends BasePage {
     By copyBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Sao chép\")");
     By otherBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Khác\")");
 
-    public SearchPage(WebDriver driver) {
+    public SearchPage(AndroidDriver driver) {
         super(driver);
     }
     public boolean isSearchPageDisplayed() {
@@ -68,6 +69,6 @@ public class SearchPage extends BasePage {
         return findElement(otherBtn).isDisplayed();
     }
     public void scrollShareButtonsList(){
-        swipeElement(qrShareBtn,"left");
+        swipeElement(qrShareBtn,"left",1.0);
     }
 }
