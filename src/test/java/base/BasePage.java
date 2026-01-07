@@ -1,15 +1,10 @@
 package base;
 
 import com.google.common.collect.ImmutableMap;
-import io.appium.java_client.AppiumBy;
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.PointerInput;
-import org.openqa.selenium.interactions.Sequence;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -20,7 +15,7 @@ public class BasePage {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
-    public WebElement findElement(By locator) {
+    public WebElement waitForElementVisible(By locator) {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
     public List<WebElement> findAllElements (By locator){
@@ -56,19 +51,17 @@ public class BasePage {
                 "percent", 0.8
         ));
     }
-    public void waitForAppPackage(String expectedPackage){
-        wait.until(d ->driver.getCurrentPackage().equals(expectedPackage));
-    }
+
     public boolean isElementSelected(By locator){
         try {
-            return (findElement(locator).getAttribute("selected").equals("true"));
+            return (waitForElementVisible(locator).getAttribute("selected").equals("true"));
         } catch (NoSuchElementException | NullPointerException e) {
             return false;
         }
     }
     public boolean isElementDisplayed(By locator){
         try {
-            return findElement(locator).isDisplayed();
+            return waitForElementVisible(locator).isDisplayed();
         }
         catch(TimeoutException e){
             return false;

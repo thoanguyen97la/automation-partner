@@ -4,8 +4,9 @@ import base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import pages.Orders.OrderPage;
-import pages.Orders.pickup.PickupInTransitTab;
+
 
 public class HomePage extends BasePage {
     //======LOCATORS======//
@@ -17,15 +18,20 @@ public class HomePage extends BasePage {
     By partnerAvatar = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(5)");
     By shareStationBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(4)");
     By notificationBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(11)");
+    By topSaleWidgetHeader = AppiumBy.accessibilityId("Sản phẩm bán chạy tại điểm");
+    By topSaleWidget = AppiumBy.xpath("//android.widget.ScrollView/android.view.View[3]");
 
     public HomePage(AndroidDriver driver) {
         super(driver);
     }
 
-    public boolean isHomePageDisplayed(){
-        return findElement(todayReward).isDisplayed();
+    private boolean isHomePageDisplayed(){
+        return isElementDisplayed(topSaleWidgetHeader);
     }
-        public UserInfoPage clickPartnerAvatar(){
+    public void verifyHomePageDisplayed(){
+        Assert.assertTrue(isHomePageDisplayed(),"Home page is not displayed");
+    }
+    public UserInfoPage clickPartnerAvatar(){
         clickElement(partnerAvatar);
         return new UserInfoPage(driver);
     }
@@ -51,13 +57,19 @@ public class HomePage extends BasePage {
         return new Customer360(driver);
 
     }
-    public void  clickTodayTrips(){
+    public OrderPage  clickTodayTrips(){
         clickElement(todayTrips);
+        return new OrderPage(driver);
     }
-    public void  clickStationPerformance(){
+    public PerformancePage  clickStationPerformance(){
         clickElement(stationPerformance);
+        return new PerformancePage(driver);
     }
-    public void swipeLeftTodayReward(double percent){
-        swipeElement(todayReward,"left",percent);
+    public void revealTodayTrip(){
+        swipeElement(todayReward,"left",0.8);
     }
+    public void revealStationPerformance(){
+        swipeElement(todayReward,"left",0.8);
+    }
+
 }

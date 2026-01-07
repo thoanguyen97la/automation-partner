@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.testng.Assert;
 
 public class RewardStatisticsPage extends BasePage {
     //======LOCATORS======//
@@ -13,13 +14,16 @@ public class RewardStatisticsPage extends BasePage {
     public RewardStatisticsPage(AndroidDriver driver) {
         super(driver);
     }
-    public boolean isRewardStatisticsPageDisplayed(){
+    private boolean isRewardStatisticsPageDisplayed(){
         try {
-            return findElement(pageTitle).isDisplayed();
+            return waitForElementVisible(pageTitle).isDisplayed();
         }
         catch (TimeoutException e){
             return false;
         }
+    }
+    public void verifyRewardStatisticsPageDisplayed(){
+        Assert.assertTrue(isRewardStatisticsPageDisplayed(),"Reward Statistics page is not displayed");
     }
     public void clickBack(){
         clickElement(backBtn);

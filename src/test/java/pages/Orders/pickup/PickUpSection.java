@@ -4,6 +4,7 @@ import base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 public class PickUpSection extends BasePage {
     //=====LOCATORS=======//
@@ -16,8 +17,11 @@ public class PickUpSection extends BasePage {
         clickElement(inTransitTab);
         return new PickupInTransitTab(driver);
     }
-    public boolean isPickUpInTransitTabSelected(){
+    private boolean isPickUpInTransitTabSelected(){
         return isElementSelected(inTransitTab);
+    }
+    public void verifyPickUpInTransitTabDisplayed(){
+        Assert.assertTrue(isPickUpInTransitTabSelected(),"PickUp In Transit tab is not selected");
     }
 
 }

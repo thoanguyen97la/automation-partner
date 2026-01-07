@@ -4,7 +4,7 @@ import base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class UserManagementPage extends BasePage {
     //======LOCATORS=======//
@@ -13,10 +13,14 @@ public class UserManagementPage extends BasePage {
     public UserManagementPage(AndroidDriver driver) {
         super(driver);
     }
-    public boolean isUserPageDisplayed(){
-        return findElement(utilsBlock).isDisplayed();
+    private boolean isUserPageDisplayed(){
+        return waitForElementVisible(utilsBlock).isDisplayed();
     }
-    public void scrollToUtilsBlock(){
+    public void verifyUserPageDisplayed(){
+        scrollToUtilsBlock();
+        Assert.assertTrue(isUserPageDisplayed(),"User Management page is not displayed");
+    }
+    private void scrollToUtilsBlock(){
         scrollDownFullScreen();
     }
 

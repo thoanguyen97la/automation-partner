@@ -4,6 +4,7 @@ import base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 
 public class Customer360 extends BasePage {
     //=====LOCATORS=======//
@@ -12,8 +13,11 @@ public class Customer360 extends BasePage {
     public Customer360(AndroidDriver driver) {
         super(driver);
     }
-    public boolean isCustomer360Displayed(){
+    private boolean isCustomer360Displayed(){
         return isElementDisplayed(pageTitle);
+    }
+    public void verifyCustomer360PageDisplayed(){
+        Assert.assertTrue(isCustomer360Displayed());
     }
     public void clickBack(){
         clickElement(backBtn);

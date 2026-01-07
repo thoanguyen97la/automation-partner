@@ -3,6 +3,7 @@ package pages.components;
 import base.BasePage;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
+import org.testng.Assert;
 import pages.HomePage;
 import pages.Orders.OrderPage;
 import pages.SearchPage;
@@ -18,17 +19,23 @@ public class BottomMenu extends BasePage {
     public BottomMenu(AndroidDriver driver) {
         super(driver);
     }
-    public boolean isHomeTabDisplayed(){
-        return findElement(homeTab).isDisplayed();
+    private boolean isHomeTabDisplayed(){
+        return waitForElementVisible(homeTab).isDisplayed();
     }
-    public boolean isOrderTabDisplayed(){
-        return findElement(orderTab).isDisplayed();
+    private boolean isOrderTabDisplayed(){
+        return waitForElementVisible(orderTab).isDisplayed();
     }
-    public boolean isSearchTabDisplayed(){
-        return findElement(searchTab).isDisplayed();
+    private boolean isSearchTabDisplayed(){
+        return waitForElementVisible(searchTab).isDisplayed();
     }
-    public boolean isUserTabDisplayed(){
-        return findElement(userTab).isDisplayed();
+    private boolean isUserTabDisplayed(){
+        return waitForElementVisible(userTab).isDisplayed();
+    }
+    public void verifyBottomMenuDisplayed(){
+        Assert.assertTrue(isHomeTabDisplayed());
+        Assert.assertTrue(isOrderTabDisplayed());
+        Assert.assertTrue(isUserTabDisplayed());
+        Assert.assertTrue(isSearchTabDisplayed());
     }
     public UserManagementPage clickUserTab() {
         clickElement(userTab);
@@ -46,10 +53,16 @@ public class BottomMenu extends BasePage {
         clickElement(orderTab);
         return new OrderPage(driver);
     }
-    public String getOrderTabSelectedStatus(){
-        return findElement(orderTab).getAttribute("selected");
+    private String getOrderTabSelectedStatus(){
+        return waitForElementVisible(orderTab).getAttribute("selected");
+    }
+    public void verifyOrderTabSelected(){
+        Assert.assertEquals(getOrderTabSelectedStatus(),"true");
     }
     public String getUserTabSelectedStatus(){
-        return findElement(userTab).getAttribute("selected");
+        return waitForElementVisible(userTab).getAttribute("selected");
+    }
+    public void verifyUserTabSelected(){
+        Assert.assertEquals(getUserTabSelectedStatus(),"true");
     }
 }

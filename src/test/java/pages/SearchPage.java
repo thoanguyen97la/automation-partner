@@ -4,8 +4,9 @@ import base.BasePage;
 import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+import pages.components.ShareBottomSheet;
 import testdata.ExpectedDataSearch;
 
 import java.util.ArrayList;
@@ -13,33 +14,41 @@ import java.util.List;
 
 public class SearchPage extends BasePage {
     //======LOCATORS=========//
+    By shareBtn = AppiumBy.xpath("(//android.widget.ImageView[@content-desc=\"Mời khách\"])[1]");
     By searchBox = AppiumBy.xpath("//android.widget.EditText");
     By slogan = AppiumBy.accessibilityId(ExpectedDataSearch.EXPECTED_SLOGAN());
     By productName = AppiumBy.androidUIAutomator("new UiSelector().descriptionContains(\""+ ExpectedDataSearch.SEARCH_KEY_WORD()+"\")");
     By errorMessage = AppiumBy.androidUIAutomator("new UiSelector().descriptionContains(\""+ExpectedDataSearch.EXPECTED_ERROR_MESSAGE()+"\")");
-    By shareBtn = AppiumBy.xpath("(//android.widget.ImageView[@content-desc=\"Mời khách\"])[1]");
-    By productShareBottomSheet = AppiumBy.accessibilityId("Mã QR sản phẩm");
-    By zaloShareBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Chia sẻ qua Zalo\")");
-    By qrShareBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Chia sẻ mã QR sản phẩm\")");
-    By copyBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Sao chép\")");
-    By otherBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Khác\")");
+
 
     public SearchPage(AndroidDriver driver) {
         super(driver);
     }
-    public boolean isSearchPageDisplayed() {
-        return findElement(searchBox).isDisplayed();
+    private boolean isSearchPageDisplayed() {
+        return waitForElementVisible(searchBox).isDisplayed();
+    }
+    public void verifySearchPageDisplayed(){
+        Assert.assertTrue(isSearchPageDisplayed(),"Search page is not displayed");
+    }
+    public void verifySoftKeyboardDisplayed(){
+        Assert.assertTrue(driver.isKeyboardShown(),"Soft keyboard is not displayed");
+    }
+    public void verifyFPTSloganDisplayed(){
+        Assert.assertEquals(getSlogan(),ExpectedDataSearch.EXPECTED_SLOGAN(),"Slogan is not displayed correctly");
+    }
+    public void verifySearchBoxIsFocusedByDefault(){
+        Assert.assertEquals(SearchBoxFocusedStatus(),"true","Search box is not focused");
     }
     public String SearchBoxFocusedStatus(){
-        return findElement(searchBox).getAttribute("focused");
+        return waitForElementVisible(searchBox).getAttribute("focused");
     }
-    public String getSlogan(){
-        return findElement(slogan).getAttribute("content-desc");
+    private String getSlogan(){
+        return waitForElementVisible(slogan).getAttribute("content-desc");
     }
     public void enterSearchKeyword(String keyWord){
         sendKeys(searchBox,keyWord);
     }
-    public List<String> getSearchResult(){
+    private List<String> getSearchResult(){
         List<WebElement> results = findAllElements(productName);
         List<String> texts = new ArrayList<>();
         for(WebElement result: results){
@@ -47,28 +56,27 @@ public class SearchPage extends BasePage {
         }
         return texts;
     }
-    public String getErrorMessage() {
-        return findElement(errorMessage).getAttribute("content-desc\n");
+
+    public void verifySearchResultsContainKeyword(String keyWord){
+        List<String> productNames = getSearchResult();
+        Assert.assertFalse(productNames.isEmpty(),"Search results are empty");
+        for(String productName: productNames){
+            Assert.assertTrue(productName.toLowerCase().contains(keyWord.toLowerCase()),
+                    "Search result '"+productName+"' does not contain keyword '"+keyWord+"'");
+        }
     }
-    public void clickShareCustomer(){
+    public void verifyErrorMessageDisplayed(){
+        Assert.assertEquals(getErrorMessage(), ExpectedDataSearch.EXPECTED_ERROR_MESSAGE(),"Error message should be "+ExpectedDataSearch.EXPECTED_ERROR_MESSAGE());
+    }
+    private String getErrorMessage() {
+        return waitForElementVisible(errorMessage).getAttribute("content-desc\n");
+    }
+    public ShareBottomSheet clickShareCustomer(){
         clickElement(shareBtn);
+        return new ShareBottomSheet(driver);
     }
-    public boolean isProductShareBottomSheetDisplayed(){
-        return findElement(productShareBottomSheet).isDisplayed();
+    public void hideSoftKeyboard(){
+        driver.hideKeyboard();
     }
-    public boolean isZaloShareButtonDisplayed(){
-        return findElement(zaloShareBtn).isDisplayed();
-    }
-    public boolean isQRShareButtonDisplayed(){
-        return findElement(qrShareBtn).isDisplayed();
-    }
-    public boolean isCopyButtonDisplayed(){
-        return findElement(copyBtn).isDisplayed();
-    }
-    public boolean isOtherButtonDisplayed(){
-        return findElement(otherBtn).isDisplayed();
-    }
-    public void scrollShareButtonsList(){
-        swipeElement(qrShareBtn,"left",1.0);
-    }
+
 }

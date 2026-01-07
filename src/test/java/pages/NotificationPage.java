@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import org.testng.Assert;
 
 public class NotificationPage extends BasePage {
     //=====LOCATORS======//
@@ -13,13 +14,16 @@ public class NotificationPage extends BasePage {
     public NotificationPage(AndroidDriver driver) {
         super(driver);
     }
-    public boolean isNotificationPageDisplayed(){
+    private boolean isNotificationPageDisplayed(){
         try {
-            return findElement(pageTitle).isDisplayed();
+            return waitForElementVisible(pageTitle).isDisplayed();
         }
         catch (TimeoutException e){
             return false;
         }
+    }
+    public void verifyNotificationPageDisplayed(){
+        Assert.assertTrue(isNotificationPageDisplayed(),"Notification page is not displayed");
     }
     public HomePage clickBack(){
         clickElement(backBtn);
