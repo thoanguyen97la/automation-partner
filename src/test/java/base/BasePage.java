@@ -51,6 +51,36 @@ public class BasePage {
                 "percent", 0.8
         ));
     }
+    public void scrollUntilElementVisible(By locator){
+        boolean isElementVisible = false;
+        int maxScrolls = 5;
+        int scrollCount = 0;
+
+        while (scrollCount < maxScrolls && !isElementVisible) {
+            try {
+                if (isElementDisplayed(locator)) {
+                    isElementVisible = true;
+                    break;
+                }
+            } catch (Exception e) {
+                // Ignore exceptions and continue scrolling
+            }
+            performScroll();
+            scrollCount++;
+        }
+    }
+    public void performScroll(){
+        Dimension size = driver.manage().window().getSize();
+        int left = size.width / 10;
+        int top = size.height / 5;
+        int width = size.width * 8 / 10;
+        int height = size.height * 6 / 10;
+        ((JavascriptExecutor) driver).executeScript("mobile: scrollGesture", ImmutableMap.of(
+                "left", left, "top", top, "width", width, "height", height,
+                "direction", "down",
+                "percent", 0.5
+        ));
+    }
 
     public boolean isElementSelected(By locator){
         try {
@@ -66,6 +96,9 @@ public class BasePage {
         catch(TimeoutException e){
             return false;
         }
+    }
+    public String getElementText(By locator){
+        return(waitForElementVisible(locator).getAttribute("content-desc"));
     }
 
 }

@@ -17,9 +17,9 @@ public class HomePage extends BasePage {
     By stationPerformance = AppiumBy.xpath("//android.widget.ImageView[contains(@content-desc,'Hiệu quả hoạt động điểm nhận hàng')]");
     By partnerAvatar = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(5)");
     By shareStationBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(4)");
-    By notificationBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(11)");
+    By notificationBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(9)");
     By topSaleWidgetHeader = AppiumBy.accessibilityId("Sản phẩm bán chạy tại điểm");
-    By topSaleWidget = AppiumBy.xpath("//android.widget.ScrollView/android.view.View[3]");
+
 
     public HomePage(AndroidDriver driver) {
         super(driver);

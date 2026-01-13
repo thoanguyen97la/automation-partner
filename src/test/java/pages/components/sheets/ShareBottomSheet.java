@@ -1,4 +1,4 @@
-package pages.components;
+package pages.components.sheets;
 
 import base.BasePage;
 import io.appium.java_client.AppiumBy;

@@ -23,5 +23,4 @@ public class PickUpSection extends BasePage {
     public void verifyPickUpInTransitTabDisplayed(){
         Assert.assertTrue(isPickUpInTransitTabSelected(),"PickUp In Transit tab is not selected");
     }
-
 }

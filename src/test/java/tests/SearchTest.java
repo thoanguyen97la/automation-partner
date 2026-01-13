@@ -3,7 +3,7 @@ import base.BaseTest;
 import org.testng.annotations.Test;
 import pages.SearchPage;
 import pages.components.BottomMenu;
-import pages.components.ShareBottomSheet;
+import pages.components.sheets.ShareBottomSheet;
 import testdata.ExpectedDataSearch;
 
 
