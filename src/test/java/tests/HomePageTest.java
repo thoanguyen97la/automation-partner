@@ -67,4 +67,12 @@ public class HomePageTest extends BaseTest {
         performancePage.clickBackToHome();
         homePage.verifyHomePageDisplayed();
     }
+    @Test
+    public void Partner_22_test_navigate_to_search_page_when_click_search_icon_on_home_page(){
+        HomePage homePage = new HomePage(driver);
+        homePage.clickSearchIcon();
+        SearchPage searchPage = new SearchPage(driver);
+        searchPage.verifySearchPageDisplayed();
+        searchPage.clickBack();
+    }
 }

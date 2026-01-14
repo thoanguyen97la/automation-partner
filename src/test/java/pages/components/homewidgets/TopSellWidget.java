@@ -8,6 +8,8 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import pages.ProductDetailPage;
 import pages.TopSellPage;
+import pages.components.sheets.RewardBottomSheet;
+import pages.components.sheets.ProductShareBottomSheet;
 import pages.components.sheets.TopSellInfoBottomSheet;
 
 import java.util.List;
@@ -18,6 +20,7 @@ public class TopSellWidget extends BasePage {
     By seeMoreBtn = AppiumBy.accessibilityId("Xem thêm");
     By productCard = AppiumBy.xpath("//android.view.View[contains(@content-desc,\"Bán gần đây\")]");
     By shareBtn = AppiumBy.xpath("//android.view.View[contains(@content-desc,\"Bán gần đây\")]/android.widget.ImageView[3]");
+    By reward = AppiumBy.xpath("//android.view.View[contains(@content-desc,\"Bán gần đây\")]/android.widget.ImageView[contains(@content-desc,\"Thưởng\")]");
 
     public TopSellWidget(AndroidDriver driver) {
         super(driver);
@@ -82,8 +85,14 @@ public class TopSellWidget extends BasePage {
         Assert.assertFalse(product.price.isEmpty(), "Price info is missing");
         Assert.assertTrue(product.price.contains("đ"), "Price info is not displayed in VND");
     }
-    public void clickShareButtonProductCard(){
+    public ProductShareBottomSheet clickShareButtonProductCard(){
         scrollUntilElementVisible(shareBtn);
         clickElement(shareBtn);
+        return new ProductShareBottomSheet(driver);
+    }
+    public RewardBottomSheet clickRewardIconProductCard(){
+        scrollUntilElementVisible(reward);
+        clickElement(reward);
+        return new RewardBottomSheet(driver);
     }
 }

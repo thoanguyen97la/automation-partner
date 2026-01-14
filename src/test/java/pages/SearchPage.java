@@ -6,7 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-import pages.components.sheets.ShareBottomSheet;
+import pages.components.sheets.ProductShareBottomSheet;
 import testdata.ExpectedDataSearch;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class SearchPage extends BasePage {
     By slogan = AppiumBy.accessibilityId(ExpectedDataSearch.EXPECTED_SLOGAN());
     By productName = AppiumBy.androidUIAutomator("new UiSelector().descriptionContains(\""+ ExpectedDataSearch.SEARCH_KEY_WORD()+"\")");
     By errorMessage = AppiumBy.androidUIAutomator("new UiSelector().descriptionContains(\""+ExpectedDataSearch.EXPECTED_ERROR_MESSAGE()+"\")");
-
+    By backBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(0)");
 
     public SearchPage(AndroidDriver driver) {
         super(driver);
@@ -71,12 +71,16 @@ public class SearchPage extends BasePage {
     private String getErrorMessage() {
         return waitForElementVisible(errorMessage).getAttribute("content-desc\n");
     }
-    public ShareBottomSheet clickShareCustomer(){
+    public ProductShareBottomSheet clickShareCustomer(){
         clickElement(shareBtn);
-        return new ShareBottomSheet(driver);
+        return new ProductShareBottomSheet(driver);
     }
     public void hideSoftKeyboard(){
         driver.hideKeyboard();
+    }
+    public void clickBack(){
+        clickElement(backBtn);
+
     }
 
 }

@@ -6,6 +6,8 @@ import pages.HomePage;
 import pages.ProductDetailPage;
 import pages.TopSellPage;
 import pages.components.homewidgets.TopSellWidget;
+import pages.components.sheets.RewardBottomSheet;
+import pages.components.sheets.ProductShareBottomSheet;
 import pages.components.sheets.TopSellInfoBottomSheet;
 
 public class TopSellHomeWidgetTests extends BaseTest {
@@ -48,5 +50,22 @@ public class TopSellHomeWidgetTests extends BaseTest {
         productDetailPage.verifyProductNameMatches(productNameOnCard);
         HomePage homePage = productDetailPage.clickBack();
         homePage.verifyHomePageDisplayed();
+    }
+    @Test
+    public void Partner_18_test_click_reward_icon_on_product_card() throws InterruptedException {
+        TopSellWidget topSellWidget = new TopSellWidget(driver);
+        RewardBottomSheet rewardBottomSheet = topSellWidget.clickRewardIconProductCard();
+        rewardBottomSheet.verifyRewardBottomSheetDisplayed();
+        rewardBottomSheet.closeBottomSheet();
+        HomePage homePage = new HomePage(driver);
+        homePage.verifyHomePageDisplayed();
+    }
+    @Test
+    public void Partner_17_test_click_share_icon_on_product_card(){
+        TopSellWidget topSellWidget = new TopSellWidget(driver);
+        ProductShareBottomSheet productShareBottomSheet = topSellWidget.clickShareButtonProductCard();
+        productShareBottomSheet.verifyProductShareBottomSheetDisplayed();
+        productShareBottomSheet.verifyAllShareButtonsDisplayed();
+        productShareBottomSheet.closeBottomSheet();
     }
 }

@@ -19,7 +19,7 @@ public class HomePage extends BasePage {
     By shareStationBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(4)");
     By notificationBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(9)");
     By topSaleWidgetHeader = AppiumBy.accessibilityId("Sản phẩm bán chạy tại điểm");
-
+    By searchIcon = AppiumBy.xpath("//android.view.View[@content-desc=\"CHIA SẺ KIẾM TIỀN NGAY NHÉ\"]/following-sibling::android.widget.ImageView[1]");
 
     public HomePage(AndroidDriver driver) {
         super(driver);
@@ -70,6 +70,10 @@ public class HomePage extends BasePage {
     }
     public void revealStationPerformance(){
         swipeElement(todayReward,"left",0.8);
+    }
+    public void clickSearchIcon(){
+        scrollUntilElementVisible(searchIcon);
+        clickElement(searchIcon);
     }
 
 }

@@ -6,7 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
-public class ShareBottomSheet extends BasePage {
+public class ProductShareBottomSheet extends BasePage {
     //======LOCATORS=========//
     By productShareBottomSheet = AppiumBy.accessibilityId("Mã QR sản phẩm");
     By zaloShareBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Chia sẻ qua Zalo\")");
@@ -14,7 +14,7 @@ public class ShareBottomSheet extends BasePage {
     By copyBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Sao chép\")");
     By otherBtn = AppiumBy.androidUIAutomator("new UiSelector().description(\"Khác\")");
 
-    public ShareBottomSheet(AndroidDriver driver) {
+    public ProductShareBottomSheet(AndroidDriver driver) {
         super(driver);
     }
 
@@ -45,5 +45,9 @@ public class ShareBottomSheet extends BasePage {
     }
     private void scrollShareButtonsList(){
         swipeElement(qrShareBtn,"left",1.0);
+    }
+    public void closeBottomSheet(){
+        closeByTapOutside();
+        Assert.assertTrue(waitForElementInvisible(productShareBottomSheet));
     }
 }

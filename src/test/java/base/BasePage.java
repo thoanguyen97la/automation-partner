@@ -21,6 +21,9 @@ public class BasePage {
     public List<WebElement> findAllElements (By locator){
         return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
+    public boolean waitForElementInvisible(By locator){
+        return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+    }
     public void clickElement(By locator) {
         wait.until(ExpectedConditions.elementToBeClickable(locator)).click();
     }
@@ -97,8 +100,11 @@ public class BasePage {
             return false;
         }
     }
-    public String getElementText(By locator){
-        return(waitForElementVisible(locator).getAttribute("content-desc"));
+    public void closeByTapOutside() {
+        // Tap vào tọa độ (x=123, y=551) - thường là vùng overlay phía trên Bottom Sheet
+        driver.executeScript("mobile: clickGesture", ImmutableMap.of(
+                "x", 123,
+                "y", 551
+        ));
     }
-
 }

@@ -3,7 +3,7 @@ import base.BaseTest;
 import org.testng.annotations.Test;
 import pages.SearchPage;
 import pages.components.BottomMenu;
-import pages.components.sheets.ShareBottomSheet;
+import pages.components.sheets.ProductShareBottomSheet;
 import testdata.ExpectedDataSearch;
 
 
@@ -43,8 +43,8 @@ public class SearchTest extends BaseTest {
         searchPage.verifySearchPageDisplayed();
         searchPage.enterSearchKeyword(ExpectedDataSearch.SEARCH_KEY_WORD());
         searchPage.hideSoftKeyboard();
-        ShareBottomSheet shareBottomSheet= searchPage.clickShareCustomer();
-        shareBottomSheet.verifyProductShareBottomSheetDisplayed();
-        shareBottomSheet.verifyAllShareButtonsDisplayed();
+        ProductShareBottomSheet productShareBottomSheet = searchPage.clickShareCustomer();
+        productShareBottomSheet.verifyProductShareBottomSheetDisplayed();
+        productShareBottomSheet.verifyAllShareButtonsDisplayed();
     }
 }
