@@ -5,6 +5,7 @@ import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.testng.Assert;
+import tests.verifiers.SystemShareSheet;
 
 public class ProductShareBottomSheet extends BasePage {
     //======LOCATORS=========//
@@ -49,5 +50,24 @@ public class ProductShareBottomSheet extends BasePage {
     public void closeBottomSheet(){
         closeByTapOutside();
         Assert.assertTrue(waitForElementInvisible(productShareBottomSheet));
+    }
+    public void clickZaloShareButton(){
+        clickElement(zaloShareBtn);
+    }
+    public QRCodeShareBottomSheet clickQRShareButton(){
+        clickElement(qrShareBtn);
+        return new QRCodeShareBottomSheet(driver);
+    }
+    public void clickCopyLinkButton(){
+        scrollShareButtonsList();
+        clickElement(copyBtn);
+    }
+    public void verifyToastMessageDisplayed(String expectedMessage){
+        Assert.assertTrue(isToastMessageDisplayed(expectedMessage),"Toast message is not displayed or incorrect");
+    }
+    public SystemShareSheet clickOtherShareButton(){
+        scrollShareButtonsList();
+        clickElement(otherBtn);
+        return new SystemShareSheet(driver);
     }
 }

@@ -6,6 +6,7 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import pages.Orders.OrderPage;
+import pages.components.sheets.ProductShareBottomSheet;
 
 
 public class HomePage extends BasePage {
@@ -20,6 +21,7 @@ public class HomePage extends BasePage {
     By notificationBtn = AppiumBy.androidUIAutomator("new UiSelector().className(\"android.widget.ImageView\").instance(9)");
     By topSaleWidgetHeader = AppiumBy.accessibilityId("Sản phẩm bán chạy tại điểm");
     By searchIcon = AppiumBy.xpath("//android.view.View[@content-desc=\"CHIA SẺ KIẾM TIỀN NGAY NHÉ\"]/following-sibling::android.widget.ImageView[1]");
+    By productShareBtn = AppiumBy.xpath("//android.view.View[contains(@content-desc,\"Bán gần đây\")]/android.widget.ImageView[3]");
 
     public HomePage(AndroidDriver driver) {
         super(driver);
@@ -58,22 +60,24 @@ public class HomePage extends BasePage {
 
     }
     public OrderPage  clickTodayTrips(){
+        swipeElement(todayReward,"left",0.8);
         clickElement(todayTrips);
         return new OrderPage(driver);
     }
     public PerformancePage  clickStationPerformance(){
+        swipeElement(todayReward,"left",0.8);
         clickElement(stationPerformance);
         return new PerformancePage(driver);
-    }
-    public void revealTodayTrip(){
-        swipeElement(todayReward,"left",0.8);
-    }
-    public void revealStationPerformance(){
-        swipeElement(todayReward,"left",0.8);
     }
     public void clickSearchIcon(){
         scrollUntilElementVisible(searchIcon);
         clickElement(searchIcon);
+    }
+
+    public ProductShareBottomSheet clickShareButtonOnProductCard(){
+        scrollUntilElementVisible(productShareBtn);
+        clickElement(productShareBtn);
+        return new ProductShareBottomSheet(driver);
     }
 
 }

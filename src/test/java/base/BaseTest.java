@@ -1,5 +1,6 @@
 package base;
 
+        import helpers.App;
         import io.appium.java_client.android.AndroidDriver;
         import io.appium.java_client.android.options.UiAutomator2Options;
         import org.testng.annotations.AfterMethod;
@@ -9,7 +10,8 @@ package base;
         import java.time.Duration;
 
         public class BaseTest {
-            public AndroidDriver driver;
+            protected AndroidDriver driver;
+            protected App app;
 
 
             @BeforeMethod
@@ -24,6 +26,7 @@ package base;
                 options.setAppWaitDuration(Duration.ofSeconds(600));
                 options.setNoReset(true);
                 options.setFullReset(false);
+
                 // ===== STABILITY (OPPO / ColorOS) =====
                 options.setAutoGrantPermissions(true);
                 options.setDisableWindowAnimation(true);
@@ -36,8 +39,8 @@ package base;
                 driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
                 driver.activateApp("com.sendo.sendostation");
                 System.out.println("App launched and bottom menu ready!");
+                app = new App(driver);
             }
-
 
             @AfterMethod
             public void Teardown() {

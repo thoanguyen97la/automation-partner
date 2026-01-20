@@ -1,6 +1,7 @@
 package base;
 
 import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.AppiumBy;
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -100,11 +101,19 @@ public class BasePage {
             return false;
         }
     }
-    public void closeByTapOutside() {
+    public void closeByTapOutside(){
         // Tap vào tọa độ (x=123, y=551) - thường là vùng overlay phía trên Bottom Sheet
         driver.executeScript("mobile: clickGesture", ImmutableMap.of(
                 "x", 123,
                 "y", 551
         ));
+    }
+    public boolean isToastMessageDisplayed(String toastLocatorStr){
+        try {
+            By toastLocator = AppiumBy.accessibilityId(toastLocatorStr);
+            return wait.until(ExpectedConditions.presenceOfElementLocated(toastLocator)).isDisplayed();
+        } catch (TimeoutException| NullPointerException  e) {
+            throw new TimeoutException(e);
+        }
     }
 }
